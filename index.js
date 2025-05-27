@@ -89,7 +89,7 @@ app.post('/', async (req, res) => {
 
     try {
         // Step 1: Get Latitude and Longitude from OpenWeatherMap Geocoding API
-        const geoUrl = https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${geoApiKey};
+        const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${geoApiKey}`;
         const geoResponse = await axios.get(geoUrl);
 
         if (geoResponse.data.length === 0) {
@@ -100,7 +100,7 @@ app.post('/', async (req, res) => {
         const { lat, lon } = geoResponse.data[0];
 
         // Step 2: Get UV Index from currentuvindex.com API
-        const uvUrl = https://currentuvindex.com/api/v1/uvi?latitude=${lat}&longitude=${lon};
+        const uvUrl = `https://currentuvindex.com/api/v1/uvi?latitude=${lat}&longitude=${lon}`;
         const uvResponse = await axios.get(uvUrl);
 
         // Check if the UV API response indicates an error or no data
