@@ -1,29 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>UV Index Tracker</title>
-  <link rel="stylesheet" href="/styles.css">
+    <title>UV Index Tracker</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <div class="container">
-    <h1>☀️ UV Index Tracker</h1>
-    <form action="/" method="POST">
-      <input type="text" name="city" placeholder="Enter city name" required>
-      <button type="submit">Check UV Index</button>
-    </form>
+    <div class="container">
+        <h1>☀️ UV Index Tracker</h1>
+        <form action="/" method="POST">
+            <input type="text" name="city" placeholder="Enter city name" required>
+            <button type="submit">Check UV Index</button>
+        </form>
 
-    <% if (error) { %>
-      <p class="error"><%= error %></p>
-    <% } %>
+        <% if (error) { %>
+            <p class="error"><%= error %></p>
+        <% } %>
 
-    <% if (uvData) { %>
-      <div class="result">
-        <h2>UV Index for <%= uvData.city %></h2>
-        <p><strong>Latitude:</strong> <%= uvData.lat %></p>
-        <p><strong>Longitude:</strong> <%= uvData.lon %></p>
-        <p><strong>UV Index:</strong> <%= uvData.value %></p>
-      </div>
-    <% } %>
-  </div>
+        <% if (uvData) { %>
+            <div class="result">
+                <h2>UV Index for <%= uvData.city %></h2>
+                <p><strong>Latitude:</strong> <%= uvData.lat %></p>
+                <p><strong>Longitude:</strong> <%= uvData.lon %></p>
+                <p><strong>UV Index:</strong> <%= uvData.value %></p>
+
+                <% /* NEW SECTION FOR PRECAUTIONS */ %>
+                <% if (uvPrecautionSummary) { %>
+                    <div class="precaution-summary">
+                        <h3>Recommendations:</h3>
+                        <p><%= uvPrecautionSummary %></p>
+                        <button class="toggle-details-btn" onclick="toggleDetails()">Show/Hide Details</button>
+                    </div>
+
+                    <div class="precaution-details" id="uvPrecautionDetails">
+                        <h4>Detailed Precautions:</h4>
+                        <%- uvDetailedPrecautions %>
+                    </div>
+                <% } %>
+                <% /* END NEW SECTION */ %>
+
+            </div>
+        <% } %>
+    </div>
+
+    <script>
+        // Client-side JavaScript to toggle visibility of detailed precautions
+        function toggleDetails() {
+            const detailsDiv = document.getElementById('uvPrecautionDetails');
+            // Check current display style. If it's 'none' or an empty string (initial state), show it.
+            if (detailsDiv.style.display === 'none' || detailsDiv.style.display === '') {
+                detailsDiv.style.display = 'block';
+            } else {
+                // Otherwise, hide it
+                detailsDiv.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
