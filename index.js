@@ -19,7 +19,6 @@ app.get('/', (req, res) => {
   res.render('index', { uvData: null, error: null });
 });
 
-// Handle form submission
 app.post('/', async (req, res) => {
   const city = req.body.city;
   const geoApiKey = 'b24e6bdbf34fc62b07bf74afb81e7dfe';
