@@ -26,7 +26,6 @@ app.post('/', async (req, res) => {
   const geoApiKey = 'b24e6bdbf34fc62b07bf74afb81e7dfe';
 
   try {
-    // Get lat/lon using OpenWeatherMap Geocoding API
     const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${geoApiKey}`;
     const geoResponse = await axios.get(geoUrl);
 
