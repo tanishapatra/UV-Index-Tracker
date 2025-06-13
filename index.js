@@ -13,11 +13,9 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }));
-// Middleware to serve static files (like CSS) from the 'public' directory
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-// --- UV Precaution Data ---
-// This object defines the summary and detailed precautions for different UV Index levels.
 const uvPrecautionLevels = {
     0: {
         summary: "No sun protection needed. Safest level.",
@@ -73,9 +71,6 @@ const uvPrecautionLevels = {
     }
 };
 
-// --- Routes ---
-
-// GET route for the homepage (displays the form)
 app.get('/', (req, res) => {
     res.render('index', { uvData: null, error: null, uvPrecautionSummary: null, uvDetailedPrecautions: null });
 });
