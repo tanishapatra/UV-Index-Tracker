@@ -95,15 +95,12 @@ app.post('/', async (req, res) => {
         const uvUrl = `https://currentuvindex.com/api/v1/uvi?latitude=${lat}&longitude=${lon}`;
         const uvResponse = await axios.get(uvUrl);
 
-        // Check if the UV API response indicates an error or no data
         if (!uvResponse.data || !uvResponse.data.ok || typeof uvResponse.data.now.uvi === 'undefined') {
             return res.render('index', { uvData: null, error: 'Unable to fetch UV index data for this location.', uvPrecautionSummary: null, uvDetailedPrecautions: null });
         }
 
-        // Round UV index to the nearest whole number for precaution lookup
         const uvIndexValue = Math.round(uvResponse.data.now.uvi);
 
-        // Prepare the data to be sent to the EJS template
         const uvData = {
             city: city, // Use the original city name for display
             lat: lat.toFixed(4), // Round lat/lon for cleaner display
