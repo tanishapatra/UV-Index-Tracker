@@ -12,7 +12,6 @@ const __dirname = path.dirname(__filename);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Middleware to parse URL-encoded bodies (for form data)
 app.use(express.urlencoded({ extended: true }));
 // Middleware to serve static files (like CSS) from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
