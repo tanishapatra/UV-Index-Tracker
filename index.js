@@ -81,18 +81,17 @@ app.post('/', async (req, res) => {
     const geoApiKey = 'b24e6bdbf34fc62b07bf74afb81e7dfe'; // Your OpenWeatherMap API Key
 
     try {
-        // Step 1: Get Latitude and Longitude from OpenWeatherMap Geocoding API
+      
         const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${geoApiKey}`;
         const geoResponse = await axios.get(geoUrl);
 
         if (geoResponse.data.length === 0) {
-            // If no city is found by OpenWeatherMap
+            
             return res.render('index', { uvData: null, error: 'City not found. Please check the spelling.', uvPrecautionSummary: null, uvDetailedPrecautions: null });
         }
 
         const { lat, lon } = geoResponse.data[0];
 
-        // Step 2: Get UV Index from currentuvindex.com API
         const uvUrl = `https://currentuvindex.com/api/v1/uvi?latitude=${lat}&longitude=${lon}`;
         const uvResponse = await axios.get(uvUrl);
 
