@@ -120,13 +120,11 @@ app.post('/', async (req, res) => {
         });
 
     } catch (err) {
-        // Log the full error for debugging purposes
         console.error("Error fetching UV data:", err.message);
         if (err.response) {
             console.error("API Response Data:", err.response.data);
             console.error("API Response Status:", err.response.status);
         }
-        // Render the index page with a generic error message
         res.render('index', {
             uvData: null,
             error: 'Something went wrong. Please try again or try a different city.',
