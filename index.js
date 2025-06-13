@@ -65,7 +65,7 @@ const uvPrecautionLevels = {
         summary: "Extreme risk. Take all precautions.",
         details: "<ul><li>Stay indoors if possible, especially between 10 AM and 4 PM.</li><li>If outdoors, wear full protective clothing, a wide-brimmed hat, and UV-blocking sunglasses.</li><li>Apply sunscreen SPF 50+ generously and reapply often.</li><li>Seek shade and avoid reflective surfaces.</li></ul>"
     },
-    12: { // Added for completeness, though 11 is often the highest officially listed "extreme"
+    12: { 
         summary: "Extreme risk. Take all precautions.",
         details: "<ul><li>Stay indoors if possible, especially between 10 AM and 4 PM.</li><li>If outdoors, wear full protective clothing, a wide-brimmed hat, and UV-blocking sunglasses.</li><li>Apply sunscreen SPF 50+ generously and reapply often.</li><li>Seek shade and avoid reflective surfaces.</li></ul>"
     }
@@ -75,10 +75,9 @@ app.get('/', (req, res) => {
     res.render('index', { uvData: null, error: null, uvPrecautionSummary: null, uvDetailedPrecautions: null });
 });
 
-// POST route for handling city submission and fetching UV data
 app.post('/', async (req, res) => {
     const city = req.body.city;
-    const geoApiKey = 'b24e6bdbf34fc62b07bf74afb81e7dfe'; // Your OpenWeatherMap API Key
+    const geoApiKey = 'b24e6bdbf34fc62b07bf74afb81e7dfe'; 
 
     try {
       
@@ -102,19 +101,17 @@ app.post('/', async (req, res) => {
         const uvIndexValue = Math.round(uvResponse.data.now.uvi);
 
         const uvData = {
-            city: city, // Use the original city name for display
-            lat: lat.toFixed(4), // Round lat/lon for cleaner display
+            city: city, 
+            lat: lat.toFixed(4),
             lon: lon.toFixed(4),
             value: uvIndexValue
         };
 
-        // Step 3: Determine precautions based on the UV index value
         const precaution = uvPrecautionLevels[uvIndexValue] || {
             summary: "UV index is out of standard range or undefined. Exercise extreme caution.",
             details: "<ul><li>Please consult local health advisories for this unusual UV index.</li></ul>"
         };
 
-        // Render the index page with all the fetched data and precaution details
         res.render('index', {
             uvData,
             error: null,
